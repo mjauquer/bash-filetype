@@ -1,0 +1,150 @@
+#! /bin/bash
+
+#=======================================================================
+#
+# filetype.flib <Functions that test file types.>
+# Copyright (C) 2012  Marcelo Javier Auquer
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# REQUIREMENTS: upvars.bash
+#         BUGS: --
+#        NOTES: Any suggestion is welcomed at auq..r@gmail.com (fill in
+#               the dots).
+#
+
+source ~/code/bash/filetype-flib/upvars/upvars.bash
+
+#===  FUNCTION =========================================================
+#
+#        NAME: is_flac
+#
+#       USAGE: is_flac VARNAME PATHNAME
+#
+# DESCRIPTION: Test the file pointed by PATHNAME. If it is a flac file,
+#              store "true" in the caller's VARNAME variable. Otherwise,
+#              store "false".
+#
+#  PARAMETERS: VARNAME   The name of a caller's variable.
+#              PATHNAME  The pathname of the file we want to test.
+#
+is_flac () {
+	OLD_IFS=$IFS
+	IFS="$(printf '\n\t')"
+	{
+		[[ "$#" -ne 2 ]] && cat <<- EOF
+		Error: function is_flac requires two arguments.
+		EOF
+	} && exit 1
+	local answer
+	if [ $(file -b --mime-type "$2") == audio/x-flac ]
+	then
+		answer="true"
+	else
+		answer="false"
+	fi
+	IFS=$OLD_IFS
+	local $1 && upvar $1 $answer
+}
+
+#===  FUNCTION =========================================================
+#
+#        NAME: is_image
+#
+#       USAGE: is_image VARNAME PATHNAME
+#
+# DESCRIPTION: Test the file pointed by PATHNAME. If it is an image
+#              file, store "true" in the caller's VARNAME variable.
+#              Otherwise, store "false".
+#
+#  PARAMETERS: VARNAME   The name of a caller's variable.
+#              PATHNAME  The pathname of the file we want to test.
+#
+is_image () {
+	OLD_IFS=$IFS
+	IFS="$(printf '\n\t')"
+	{
+		[[ "$#" -ne 2 ]] && cat <<- EOF
+		Error: function is_image requires two arguments.
+		EOF
+	} && exit 1
+	local answer="false"
+	[[ $(file -b --mime-type "$2") =~ image/.* ]] && answer="true"
+	IFS=$OLD_IFS
+	local $1 && upvar $1 $answer
+}
+
+#===  FUNCTION =========================================================
+#
+#        NAME: is_iso
+#
+#       USAGE: is_iso VARNAME PATHNAME
+#
+# DESCRIPTION: Test the file pointed by PATHNAME. If it is an iso file,
+#              store "true" in the caller's VARNAME variable. Otherwise,
+#              store "false".
+#
+#  PARAMETERS: VARNAME   The name of a caller's variable.
+#              PATHNAME  The pathname of the file we want to test.
+#
+is_iso () {
+	OLD_IFS=$IFS
+	IFS="$(printf '\n\t')"
+	{
+		[[ "$#" -ne 2 ]] && cat <<- EOF
+		Error: function is_iso requires two arguments.
+		EOF
+	} && exit 1
+	local answer
+	if [ $(file -b --mime-type "$2") == application/x-iso9660-image ]
+	then
+		answer="true"
+	else
+		answer="false"
+	fi
+	IFS=$OLD_IFS
+	local $1 && upvar $1 $answer
+}
+
+#===  FUNCTION =========================================================
+#
+#        NAME: is_text
+#
+#       USAGE: is_text VARNAME PATHNAME
+#
+# DESCRIPTION: Test the file pointed by PATHNAME. If it is a text file,
+#              store "true" in the caller's VARNAME variable. Otherwise,
+#              store "false".
+#
+#  PARAMETERS: VARNAME   The name of a caller's variable.
+#              PATHNAME  The pathname of the file we want to test.
+#
+is_text () {
+	OLD_IFS=$IFS
+	IFS="$(printf '\n\t')"
+	{
+		[[ "$#" -ne 2 ]] && cat <<- EOF
+		Error: function is_text requires two arguments.
+		EOF
+	} && exit 1
+	local answer
+	if [ $(file -b --mime-type "$2") == text/plain ]
+	then
+		answer="true"
+	else
+		answer="false"
+	fi
+	IFS=$OLD_IFS
+	local $1 && upvar $1 $answer
+}
