@@ -46,7 +46,7 @@ is_flac () {
 		[[ "$#" -ne 2 ]] && cat <<- EOF
 		Error: function is_flac requires two arguments.
 		EOF
-	} && exit 1
+	} && return 1
 	local answer
 	if [ $(file -b --mime-type "$2") == audio/x-flac ]
 	then
@@ -78,7 +78,7 @@ is_image () {
 		[[ "$#" -ne 2 ]] && cat <<- EOF
 		Error: function is_image requires two arguments.
 		EOF
-	} && exit 1
+	} && return 1
 	local answer="false"
 	[[ $(file -b --mime-type "$2") =~ image/.* ]] && answer="true"
 	IFS=$OLD_IFS
@@ -105,7 +105,7 @@ is_iso () {
 		[[ "$#" -ne 2 ]] && cat <<- EOF
 		Error: function is_iso requires two arguments.
 		EOF
-	} && exit 1
+	} && return 1
 	local answer
 	if [ $(file -b --mime-type "$2") == application/x-iso9660-image ]
 	then
@@ -137,7 +137,7 @@ is_text () {
 		[[ "$#" -ne 2 ]] && cat <<- EOF
 		Error: function is_text requires two arguments.
 		EOF
-	} && exit 1
+	} && return 1
 	local answer
 	if [ $(file -b --mime-type "$2") == text/plain ]
 	then
