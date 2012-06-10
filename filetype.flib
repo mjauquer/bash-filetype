@@ -1,7 +1,5 @@
 #! /bin/bash
 
-#=======================================================================
-#
 # filetype.flib <Functions that test file types.>
 # Copyright (C) 2012  Marcelo Javier Auquer
 #
@@ -22,13 +20,10 @@
 #         BUGS: --
 #        NOTES: Any suggestion is welcomed at auq..r@gmail.com (fill in
 #               the dots).
-#
 
 source ~/code/bash/filetype-flib/upvars/upvars.bash
 
 #===  FUNCTION =========================================================
-#
-#        NAME: is_flac
 #
 #       USAGE: is_flac VARNAME PATHNAME
 #
@@ -60,8 +55,6 @@ is_flac () {
 
 #===  FUNCTION =========================================================
 #
-#        NAME: is_image
-#
 #       USAGE: is_image VARNAME PATHNAME
 #
 # DESCRIPTION: Test the file pointed by PATHNAME. If it is an image
@@ -86,8 +79,6 @@ is_image () {
 }
 
 #===  FUNCTION =========================================================
-#
-#        NAME: is_iso
 #
 #       USAGE: is_iso VARNAME PATHNAME
 #
@@ -118,8 +109,6 @@ is_iso () {
 }
 
 #===  FUNCTION =========================================================
-#
-#        NAME: is_text
 #
 #       USAGE: is_text VARNAME PATHNAME
 #
