@@ -1,5 +1,7 @@
 #! /bin/bash
 
+#=======================================================================
+#
 # filetype.flib <Functions that test file types.>
 # Copyright (C) 2012  Marcelo Javier Auquer
 #
@@ -20,10 +22,47 @@
 #         BUGS: --
 #        NOTES: Any suggestion is welcomed at auq..r@gmail.com (fill in
 #               the dots).
+#
 
 source ~/code/bash/filetype-flib/upvars/upvars.bash
 
 #===  FUNCTION =========================================================
+#
+#        NAME: is_audio
+#
+#       USAGE: is_audio VARNAME PATHNAME
+#
+# DESCRIPTION: Test if the file pointed by PATHNAME is an audio file.
+#              Store "true" in VARNAME if it is so. Otherwise, store 
+#              "false".
+#
+#  PARAMETERS: VARNAME   The name of a variable declared in the caller's 
+#                        scope.
+#              PATHNAME  The pathname that points to the file to be
+#                        tested.
+#
+is_audio () {
+	OLD_IFS=$IFS
+	IFS="$(printf '\n\t')"
+	{
+		[[ "$#" -ne 2 ]] && cat <<- EOF
+		Error: function is_flac requires two arguments.
+		EOF
+	} && return 1
+	local answer=false
+	is_flac answer "$2"
+	if [ $answer == true ]
+	then
+		local $1 && upvar $1 $answer
+		return 0
+	fi
+	IFS=$OLD_IFS
+	local $1 && upvar $1 $answer
+}
+
+#===  FUNCTION =========================================================
+#
+#        NAME: is_flac
 #
 #       USAGE: is_flac VARNAME PATHNAME
 #
@@ -55,6 +94,8 @@ is_flac () {
 
 #===  FUNCTION =========================================================
 #
+#        NAME: is_image
+#
 #       USAGE: is_image VARNAME PATHNAME
 #
 # DESCRIPTION: Test the file pointed by PATHNAME. If it is an image
@@ -79,6 +120,8 @@ is_image () {
 }
 
 #===  FUNCTION =========================================================
+#
+#        NAME: is_iso
 #
 #       USAGE: is_iso VARNAME PATHNAME
 #
@@ -109,6 +152,8 @@ is_iso () {
 }
 
 #===  FUNCTION =========================================================
+#
+#        NAME: is_text
 #
 #       USAGE: is_text VARNAME PATHNAME
 #
