@@ -24,7 +24,7 @@
 #               the dots).
 #
 
-source ~/code/bash/filetype-flib/upvars/upvars.bash
+source $FILETYPE_HOME/upvars/upvars.bash
 
 #===  FUNCTION =========================================================
 #
